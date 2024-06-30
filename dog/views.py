@@ -4,21 +4,26 @@ from .models import Choice, Question
 from django.http import Http404
 from django.db.models import F
 from django.urls import reverse
+from django.views import generic
+from django.utils import timezone
 
 # Create your views here.
 
-def index(request):
-    latest_question_list = Question.objects.order_by("-pub_date")[:5]
-    context = {"latest_question_list": latest_question_list,}
-    return render(request, "dog/index.html", context)
+class IndexView(generic.ListView):
+    template_name = "dog/index.html"
+    context_object_name = "latest_question_list"
+    def get_queryset(self):
+        return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
+    
+class DetailView(generic.DetailView):
+    model = Question
+    template_name = "dog/detail.html"
+    def get_queryset(self):
+        return Question.objects.filter(pub_date__lte=timezone.now())
 
-def detail(request, question_id):
-    question = get_object_or_404(Question, pk=question_id) 
-    return render(request, "dog/detail.html", {"question": question})
-
-def results(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, "dog/results.html", {"question": question})
+class ResultsView(generic.DetailView):
+    model = Question
+    template_name = "dog/results.html"
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
