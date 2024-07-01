@@ -1,15 +1,35 @@
 <!DOCTYPE html>
 <head>
+    {% load static %}
     <title>List of SniffShow events</title>
+    <link rel="stylesheet" href="{% static 'event/style.css' %}">
 </head>
 
 <body>
-    {% if events_to_happen %}
-    <ul>
-    {% for event in events_to_happen %}
-    <li><a href="{% url 'event:detail' event.id}">{{ event.event_name }}</a></li>
-    {% endfor %}
+    <ul class="navbar">
+        <li class = "active"><a href="{% url 'event:list' %}">List</a></li>
+        <li><a href="{% url 'event:add' %}">Add an event</a></li>
     </ul>
+
+    {% if events_to_happen %}
+    <table>
+        <tr>
+    <th>Event name:</th>
+    <th>Event starts:</th>
+    <th>Event ends:</th>
+    <th>Event cost:</th>
+    <th>Event added:</th>
+</tr>
+    {% for event in events_to_happen %}
+<tr>
+    <td>{{ event.event_name }}</td>
+    <td>{{ event.event_start_date }}</td>
+    <td>{{ event.event_end_date }}</td>
+    <td>{{ event.event_price }}$</td>
+    <td>{{ event.event_add_time}}</td>
+</tr>
+    {% endfor %}
+    </table>
     {% else %}
     <p>No events added for now! Check again soon!</p>
     {% endif %}

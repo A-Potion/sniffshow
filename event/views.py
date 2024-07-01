@@ -9,6 +9,8 @@ from django.views import generic
 from django.utils import timezone
 from .forms import AddForm
 
+import datetime
+
 
 class ListView(generic.ListView):
     template_name = "event/list.html"
@@ -20,9 +22,12 @@ def add(request):
     if request.method == "POST":
         form = AddForm(request.POST)
         if form.is_valid():
-            form.save()
-            ename = form.cleaned_data['ename']
-            Event.objects.create(event_start_date = timezone.now(), event_end_date = timezone.now(), event_name = ename, event_price = 1)
+            data = form.cleaned_data
+            event_start_date = form.cleaned_data["event_start_date"]
+            event_end_date = form.cleaned_data["event_end_date"]
+            event_name = form.cleaned_data["event_name"]
+            event_price = form.cleaned_data["event_price"]
+            Event.objects.create(event_start_date=event_start_date, event_end_date=event_end_date, event_name=event_name, event_price=event_price)
             return HttpResponseRedirect(reverse("event:list"))
     else:
         form = AddForm()

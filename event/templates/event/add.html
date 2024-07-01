@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <head>
+    {% load static %}
     <title>Add a SniffShow event!</title>
+    <link rel="stylesheet" href="{% static 'event/style.css' %}">
 </head>
 
 <body>
+
+    <ul class="navbar">
+        <li><a href="{% url 'event:list' %}">List</a></li>
+        <li class = "active"><a href="{% url 'event:add' %}">Add an event</a></li>
+    </ul>
+
     <form action="{% url 'event:add' %}" method="post">
         {% csrf_token %}
         {{ form }}
