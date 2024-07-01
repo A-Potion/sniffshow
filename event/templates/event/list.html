@@ -9,6 +9,8 @@
     <ul class="navbar">
         <li class = "active"><a href="{% url 'event:list' %}">List</a></li>
         <li><a href="{% url 'event:add' %}">Add an event</a></li>
+        <li><a href="event/signin">Sign in</a></li>
+        <li><a href="event/signup">Sign up</a></li>
     </ul>
 
     {% if events_to_happen %}
