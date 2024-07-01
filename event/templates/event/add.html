@@ -4,8 +4,9 @@
 </head>
 
 <body>
-    <form>
-        <label for="ename">Event name:</label><br>
-        <input type="text" id="ename" name="ename">
+    <form action="{% url 'event:list' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Add">
     </form>
 </body>
