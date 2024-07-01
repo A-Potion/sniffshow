@@ -1,7 +1,6 @@
-from typing import Any
 from django.db.models.query import QuerySet
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from .models import Event
 from django.http import Http404
 from django.db.models import F
@@ -21,8 +20,11 @@ def add(request):
     if request.method == "POST":
         form = AddForm(request.POST)
         if form.is_valid():
+            form.save()
+            ename = form.cleaned_data['ename']
+            Event.objects.create(event_start_date = timezone.now(), event_end_date = timezone.now(), event_name = ename, event_price = 1)
             return HttpResponseRedirect(reverse("event:list"))
     else:
-            form = AddForm()
+        form = AddForm()
         
-    return render(request, "add.html", {"form": form})
+    return render(request, "event/add.html", {"form": form})

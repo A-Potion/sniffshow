@@ -4,7 +4,7 @@
 </head>
 
 <body>
-    <form action="{% url 'event:list' %}" method="post">
+    <form action="{% url 'event:add' %}" method="post">
         {% csrf_token %}
         {{ form }}
         <input type="submit" value="Add">
