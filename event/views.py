@@ -7,10 +7,10 @@ from django.db.models import F
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.contrib.auth import views as auth_view
 from .forms import AddForm
 
 import datetime
-
 
 class ListView(generic.ListView):
     template_name = "event/list.html"

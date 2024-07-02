@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<head>
-    {% load static %}
-    <title>List of SniffShow events</title>
-    <link rel="stylesheet" href="{% static 'event/style.css' %}">
-</head>
+{% extends "event/base.html" %}
+{% block title %}List of SniffShow events{% endblock title %}
+{% block list %}class="active"{% endblock %}
 
-<body>
-    <ul class="navbar">
-        <li class = "active"><a href="{% url 'event:list' %}">List</a></li>
-        <li><a href="{% url 'event:add' %}">Add an event</a></li>
-    </ul>
-
+{% block content %}
     {% if events_to_happen %}
     <table>
         <tr>
@@ -34,5 +26,4 @@
     <p>No events added for now! Check again soon!</p>
     {% endif %}
 
-</body>
-
+{% endblock content %}

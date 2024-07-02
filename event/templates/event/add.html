@@ -1,20 +1,30 @@
-<!DOCTYPE html>
-<head>
-    {% load static %}
-    <title>Add a SniffShow event!</title>
-    <link rel="stylesheet" href="{% static 'event/style.css' %}">
-</head>
+{% extends "event/base.html" %}
 
-<body>
+{% block title %}Add a SniffShow event{% endblock title %}
+{% block add %}class="active"{% endblock %}
 
-    <ul class="navbar">
-        <li><a href="{% url 'event:list' %}">List</a></li>
-        <li class = "active"><a href="{% url 'event:add' %}">Add an event</a></li>
-    </ul>
+{% block content %}
 
     <form action="{% url 'event:add' %}" method="post">
         {% csrf_token %}
-        {{ form }}
+        <table>
+          <tr>
+              <td>{{ form.event_name.label_tag }}</td>
+              <td>{{ form.event_name }}</td>
+          </tr>
+          <tr>
+              <td>{{ form.event_start_date.label_tag }}</td>
+              <td>{{ form.event_start_date }}</td>
+          </tr>
+          <tr>
+            <td>{{ form.event_end_date.label_tag }}</td>
+            <td>{{ form.event_end_date }}</td>
+        </tr>
+        <tr>
+          <td>{{ form.event_price.label_tag }}</td>
+          <td>{{ form.event_price }}</td>
+      </tr>
+          </table>
         <input type="submit" value="Add">
     </form>
-</body>
+{% endblock content %}
