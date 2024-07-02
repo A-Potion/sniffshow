@@ -9,6 +9,7 @@ from django.views import generic
 from django.utils import timezone
 from django.contrib.auth import views as auth_view
 from .forms import AddForm
+import django
 
 import datetime
 
@@ -27,7 +28,7 @@ def add(request):
             event_end_date = form.cleaned_data["event_end_date"]
             event_name = form.cleaned_data["event_name"]
             event_price = form.cleaned_data["event_price"]
-            Event.objects.create(event_start_date=event_start_date, event_end_date=event_end_date, event_name=event_name, event_price=event_price)
+            Event.objects.create(event_add_date=timezone.now(), event_start_date=event_start_date, event_end_date=event_end_date, event_name=event_name, event_price=event_price)
             return HttpResponseRedirect(reverse("event:list"))
     else:
         form = AddForm()
