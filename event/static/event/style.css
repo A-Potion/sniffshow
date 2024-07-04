@@ -37,3 +37,36 @@ button.logout {
 li.active {
     background-color: green;
 }
+
+.detail-grid {
+  display: grid;
+  grid-template-areas:
+    'desc desc sheet'
+    'desc desc sheet'
+    'desc desc sheet'
+    'desc desc sheet';
+  gap: 10px;
+  padding: 10px;
+}
+
+.namedesc {
+    grid-area: desc;
+}
+
+.factsheet {
+    grid-area: sheet;
+}
+
+table.detail {
+    font-size: 112%;
+    height: 100%;
+    padding: 10px 0px;
+}
+
+div.factsheet tr:nth-child(even) {
+    background-color: #CECFD2;
+}
+
+div.factsheet tr:nth-child(odd) {
+    background-color: #D2D1CE;
+}

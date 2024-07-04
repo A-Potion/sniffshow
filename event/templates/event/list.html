@@ -1,4 +1,4 @@
-{% extends "event/base.html" %}
+{% extends "base.html" %}
 {% block title %}List of SniffShow events{% endblock title %}
 {% block list %}class="active"{% endblock %}
 
@@ -14,7 +14,7 @@
 </tr>
     {% for event in events_to_happen %}
 <tr>
-    <td>{{ event.event_name }}</td>
+    <td><a href="{% url 'event:detail' event.id  %}">{{ event.event_name }}</a></td>
     <td>{{ event.event_start_date }}</td>
     <td>{{ event.event_end_date }}</td>
     <td>{{ event.event_price }}$</td>

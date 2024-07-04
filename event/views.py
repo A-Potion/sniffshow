@@ -18,6 +18,11 @@ class ListView(generic.ListView):
     context_object_name = "events_to_happen"
     def get_queryset(self):
         return Event.objects.filter(event_end_date__gte = timezone.now()).order_by("-event_end_date")
+    
+class DetailView(generic.DetailView):
+    model = Event
+    template_name = "event/detail.html"
+        
 
 def add(request):
     if request.method == "POST":
