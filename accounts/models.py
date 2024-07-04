@@ -1,26 +1,19 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
 # Create your models here.
 
-class CustomUser(AbstractUser):
+class AccountManager(Base):
+    def create_user(self. email, password=None, date_of_birth):
+        if not email:
+            raise ValueError("Users must have an email address")
+        user = self.model(
+            email=self.normalize_email(email),
+            date_of_birth=date_of_birth
+        )
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
     email = models.EmailField(unique=True)
-    username = models.CharField(max_length=150, unique=True)
+    date_of_birth = models.DateField()
 
-    USERNAME_FIELD = 'username'
-    EMAIL_FIELD = 'email'
-
-
-    groups = models.ManyToManyField(
-        'auth.Group',
-        related_name='customuser_set',
-        blank=True,
-        help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
-        verbose_name='groups',
-    )
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        related_name='customuser_set',
-        blank=True,
-        help_text='Specific permissions for this user.',
-        verbose_name='user permissions',
-    )
+    USERNAME_FIELD = 'email'
