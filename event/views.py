@@ -10,6 +10,8 @@ from django.utils import timezone
 from django.contrib.auth import views as auth_view
 from .forms import AddForm
 import django
+from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import UserCreationForm
 
 import datetime
 
@@ -22,9 +24,15 @@ class ListView(generic.ListView):
 class DetailView(generic.DetailView):
     model = Event
     template_name = "event/detail.html"
+
+class SignUpView(generic.CreateView):
+    form = UserCreationForm
+    success_url = reverse("event:list")
+    template_name = "registration/signup.html"
         
 
 def add(request):
+    error_msg = ""
     if request.method == "POST":
         form = AddForm(request.POST)
         if form.is_valid():
@@ -33,9 +41,12 @@ def add(request):
             event_end_date = form.cleaned_data["event_end_date"]
             event_name = form.cleaned_data["event_name"]
             event_price = form.cleaned_data["event_price"]
-            Event.objects.create(event_add_date=timezone.now(), event_start_date=event_start_date, event_end_date=event_end_date, event_name=event_name, event_price=event_price)
-            return HttpResponseRedirect(reverse("event:list"))
+            if event_end_date <= event_start_date:
+                error_msg = "The event may not end before it starts."
+            else:
+                Event.objects.create(event_add_date=timezone.now(), event_start_date=event_start_date, event_end_date=event_end_date, event_name=event_name, event_price=event_price)
+                return HttpResponseRedirect(reverse("event:list"))
     else:
         form = AddForm()
         
-    return render(request, "event/add.html", {"form": form})
+    return render(request, "event/add.html", {"form": form, "error_msg": error_msg})
