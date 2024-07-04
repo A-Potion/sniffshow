@@ -35,7 +35,7 @@
     </form>
     <p>{{ error_msg }}</p>
     {% else %}
-    <p>You must be <a href="{% url 'login' %}">logged in</a> to add an event.</p>
+    <p>You must be <a href="{% url 'accounts:login' %}">logged in</a> to add an event.</p>
     {% endif %}
 
 {% endblock content %}

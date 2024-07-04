@@ -9,9 +9,7 @@ from django.views import generic
 from django.utils import timezone
 from django.contrib.auth import views as auth_view
 from .forms import AddForm
-import django
-from django.core.exceptions import ValidationError
-from django.contrib.auth.forms import UserCreationForm
+
 
 import datetime
 
@@ -25,11 +23,6 @@ class DetailView(generic.DetailView):
     model = Event
     template_name = "event/detail.html"
 
-class SignUpView(generic.CreateView):
-    form = UserCreationForm
-    success_url = reverse("event:list")
-    template_name = "registration/signup.html"
-        
 
 def add(request):
     error_msg = ""
