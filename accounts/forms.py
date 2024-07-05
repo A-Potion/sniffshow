@@ -1,13 +1,13 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser
-from django.forms import TextInput, EmailInput, PasswordInput, ModelForm
+from django.contrib.auth.models import User
+from django.forms import TextInput, EmailInput, PasswordInput, ModelForm, EmailField
 
 class SignUpForm(UserCreationForm):
-    email = forms.EmailField(max_length=200, help_text="w")
+    email = EmailField(max_length=200)
 
     class Meta:
-        model = CustomUser
+        model = User
         fields = UserCreationForm.Meta.fields + ("password1", "password2", "email")
         widgets = {
             'username': TextInput(attrs={'placeholder': 'Username'}),
