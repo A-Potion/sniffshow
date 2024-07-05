@@ -3,12 +3,12 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import CustomUser
 from django.forms import TextInput, EmailInput, PasswordInput, ModelForm
 
-class SignUpForm(ModelForm):
+class SignUpForm(UserCreationForm):
     email = forms.EmailField(max_length=200, help_text="w")
 
     class Meta:
         model = CustomUser
-        fields = ["username", "email", "password1", "password2"]
+        fields = UserCreationForm.Meta.fields + ("password1", "password2", "email")
         widgets = {
             'username': TextInput(attrs={'placeholder': 'Username'}),
             'email': EmailInput(attrs={'placeholder': 'Email'}),
