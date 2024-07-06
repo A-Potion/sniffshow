@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import UserData, Dog
+from django.core.exceptions import ValidationError
 
 class SignUpForm(UserCreationForm):
     phone = forms.CharField(max_length=15)
@@ -30,3 +31,16 @@ class DogForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'placeholder': 'Name'}),
             'sex': forms.Select(),
         }
+
+    def clean(self):
+        cleaned_data = self.cleaned_data
+
+        try:
+            Dog.objects.get(name=cleaned_data['name'], user=self.user)
+        except Dog.DoesNotExist:
+            pass
+        else:
+            raise ValidationError('Solution with this Name already exists for this problem')
+
+        # Always return cleaned_data
+        return cleaned_data
