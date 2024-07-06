@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}{{ event.event_name }}{% endblock %}
+
+{% block content %}
+<div class="detail-grid">
+<div class="namedesc">
+<h1>{{ event.event_name }}</h1>
+<p class="detail">{{ event.event_description }}</p>
+</div>
+
+<div class="factsheet">
+<table class="detail">
+    <tr>
+    <th colspan="2">{{ event.event_name }} factsheet</th>
+    </tr>
+    <tr>
+        <td>Name:</td>
+        <td>{{ event.event_name }}</td>
+    </tr>
+    <tr>
+        <td>Start time:</td>
+        <td>{{ event.event_start_date }}</td>
+    </tr>
+    <tr>
+        <td>End time:</td>
+        <td>{{ event.event_end_date }}</td>
+    </tr>
+    <tr>
+        <td>Cost:</td>
+        <td>{{ event.event_price }}</td>
+    </tr>
+</div>
+
+</table>
+</div>
+{% endblock %}

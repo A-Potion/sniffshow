@@ -1,3 +1,7 @@
+* {
+    font-family: Arial, sans-serif;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -18,6 +22,51 @@ li a {
     text-decoration: none;
 }
 
+button.logout {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 14px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
 li.active {
     background-color: green;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-areas:
+    'desc desc sheet'
+    'desc desc sheet'
+    'desc desc sheet'
+    'desc desc sheet';
+  gap: 10px;
+  padding: 10px;
+}
+
+.namedesc {
+    grid-area: desc;
+}
+
+.factsheet {
+    grid-area: sheet;
+}
+
+table.detail {
+    font-size: 112%;
+    height: 100%;
+    padding: 10px 0px;
+}
+
+div.factsheet tr:nth-child(even) {
+    background-color: #CECFD2;
+}
+
+div.factsheet tr:nth-child(odd) {
+    background-color: #D2D1CE;
 }

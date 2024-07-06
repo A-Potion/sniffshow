@@ -1,1 +1,2 @@
-sniffshow/settings.py
+db.sqlite3
+.env
