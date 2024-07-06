@@ -1,17 +1,20 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.forms import TextInput, EmailInput, PasswordInput, ModelForm, EmailField
 
 class SignUpForm(UserCreationForm):
-    email = EmailField(max_length=200)
+    email = forms.EmailField(max_length=200)
 
     class Meta:
         model = User
         fields = UserCreationForm.Meta.fields + ("password1", "password2", "email")
         widgets = {
-            'username': TextInput(attrs={'placeholder': 'Username'}),
-            'email': EmailInput(attrs={'placeholder': 'Email'}),
-            'password1': PasswordInput(attrs={'placeholder': 'Password'}),
-            'password2': PasswordInput(attrs={'placeholder': 'Repeat password'}),
+            'username': forms.TextInput(attrs={'placeholder': 'Username'}),
+            'email': forms.EmailInput(attrs={'placeholder': 'Email'}),
+            'password1': forms.PasswordInput(attrs={'placeholder': 'Password'}),
+            'password2': forms.PasswordInput(attrs={'placeholder': 'Repeat password'}),
         }
+    def __init__(self, *args, **kwargs):
+        super(SignUpForm, self).__init__(*args, **kwargs)
+        for name, widget in self._meta.widgets.items():
+            self[name].field.widget.attrs.update(widget.attrs)
