@@ -13,3 +13,15 @@ class Event(models.Model):
 
     def event_already_happened(self):
         return evemt_end_date >= timezone.now()
+
+class Application(models.Model):
+    event = models.OneToOneField(
+        Event,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
