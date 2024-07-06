@@ -11,5 +11,6 @@ urlpatterns = [
     auth_views.LogoutView.as_view(next_page="event:list"), name="logout",
     ),
     path("signup", views.signup, name="signup"),
+    path("profile", views.profile, name="profile"),
     path('', include('django.contrib.auth.urls')),
 ]

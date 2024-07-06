@@ -70,3 +70,20 @@ div.factsheet tr:nth-child(even) {
 div.factsheet tr:nth-child(odd) {
     background-color: #D2D1CE;
 }
+
+.profile-grid {
+  display: grid;
+  grid-template-areas:
+    'acc acc dog dog'
+    'acc acc dog dog'
+    'acc acc dog dog';
+  gap: 10px;
+  padding: 10px;
+}
+
+.dog-prof {
+    grid-area: dog;
+}
+.user-prof {
+    grid-area: acc;
+}

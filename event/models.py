@@ -1,7 +1,10 @@
 from django.utils import timezone
 from django.db import models
+from django.contrib.auth.models import User
+from accounts.models import UserData
 
 import datetime
+
 
 class Event(models.Model):
     event_name = models.CharField(max_length=120)
@@ -12,16 +15,15 @@ class Event(models.Model):
     event_description = models.TextField(max_length=1200)
 
     def event_already_happened(self):
-        return evemt_end_date >= timezone.now()
+        return self.event_end_date >= timezone.now()
+
 
 class Application(models.Model):
-    event = models.OneToOneField(
+    event = models.ForeignKey(
         Event,
         on_delete=models.CASCADE,
-        primary_key=True,
     )
-    user = models.OneToOneField(
+    user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        primary_key=True,
     )
