@@ -87,3 +87,7 @@ div.factsheet tr:nth-child(odd) {
 .user-prof {
     grid-area: acc;
 }
+
+.add-dog-form {
+    display: none;
+}

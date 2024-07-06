@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import UserData
+from .models import UserData, Dog
 
 class SignUpForm(UserCreationForm):
     phone = forms.CharField(max_length=15)
@@ -21,3 +21,12 @@ class SignUpForm(UserCreationForm):
         super(SignUpForm, self).__init__(*args, **kwargs)
         for name, widget in self._meta.widgets.items():
             self[name].field.widget.attrs.update(widget.attrs)
+
+class DogForm(forms.ModelForm):
+    class Meta:
+        model = Dog
+        fields = ["sex", "name"]
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Name'}),
+            'sex': forms.Select(),
+        }

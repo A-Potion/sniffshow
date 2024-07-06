@@ -14,7 +14,32 @@
     </div>
     <div class="dog-prof">
     <h2>Your dogs</h2>
+        {% for dog in user.dog_set.all %}
+        <h3>{{ dog.name }}</h3>
+        <p>Sex: {{ dog.sex }}</p>
+        {% endfor %}
+    <button class="add-dog-open-button" onclick="openDogForm()">Add a dog</button>
+
+    <div id="add-dog-form" class="add-dog-form">
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <button type="submit" name="makedog" onclick="closeDogForm()">Submit</button>
+    </form>
+    </div>
     </div>
     </div>
 
-{%  endblock content %}
+        <script>
+        function openDogForm() {
+        document.getElementById("add-dog-form").style.display = "block";
+        }
+
+        function closeDogForm() {
+        document.getElementById("add-dog-form").style.display = "none";
+        }
+    </script>
+
+{% endblock content %}

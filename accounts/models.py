@@ -8,6 +8,6 @@ class UserData(models.Model):
 
 
 class Dog(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=40)
-    sex = models.CharField(choices=["Male", "Female"])
+    sex = models.CharField(max_length=20, choices=[("Male", "Female")])
