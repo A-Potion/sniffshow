@@ -8,13 +8,17 @@
         <tr>
     <th>Event name:</th>
     <th>Event starts:</th>
-    <th>Applications:</th>
+    <th>Applications due:</th>
 </tr>
     {% for event in events_to_happen %}
 <tr>
     <td><a href="{% url 'event:detail' event.id  %}">{{ event.event_name }}</a></td>
     <td>{{ event.event_start_date }}</td>
-    <td>{{ event.event_end_date }}</td>
+    {% if event.applications_closed %}
+    <td>{{ event.applications_deadline }}</td>
+    {% else %}
+    <td>Closed</td>
+    {% endif %}
     <td></td>
 </tr>
     {% endfor %}

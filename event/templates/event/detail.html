@@ -29,8 +29,19 @@
         <td>Cost:</td>
         <td>{{ event.event_price }}</td>
     </tr>
+    <tr>
+        <td>Applications deadline:</td>
+        <td>{{ event.applications_deadline }}</td>
+    </tr>
+</div>
+</table>
+
+<div class="applications-manage">
+
+    {% if event.added_by == user %}
+    <p>This event is yours.</p>
+    {% endif %}
 </div>
 
-</table>
 </div>
 {% endblock %}
