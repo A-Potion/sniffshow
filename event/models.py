@@ -13,6 +13,7 @@ class Event(models.Model):
     event_add_date = models.DateTimeField("event add date")
     event_price = models.PositiveIntegerField()
     event_description = models.TextField(max_length=1200)
+    applications_deadline = models.DateTimeField("applications deadline")
 
     def event_already_happened(self):
         return self.event_end_date >= timezone.now()

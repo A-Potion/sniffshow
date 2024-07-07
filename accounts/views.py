@@ -10,17 +10,19 @@ from django.core.exceptions import ValidationError
 @login_required
 def profile(request):
     form = DogForm(request.POST or None)
-    dog = form.save(commit=False)
-    dog.user = request.user
+    form.user = request.user
     if form.is_valid():
         try:
-            dog.clean()
+            form.clean()
+            dog = form.save(commit=False)
+            dog.user = request.user
             dog.save()
             form = DogForm()  # Reset the form after saving
             return HttpResponseRedirect(reverse("accounts:profile"))
         except ValidationError as e:
-            # Handle the validation error, e.g., by adding it to the form's errors
-            form.add_error(None, e)
+            form = DogForm(request.POST)
+            form.add_error(None, e.message)
+            return HttpResponseRedirect(reverse("accounts:profile"))
     return render(request, "registration/profile.html", {"form": form})
 
 def signup(request):

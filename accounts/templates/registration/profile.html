@@ -17,7 +17,10 @@
         {% for dog in user.dog_set.all %}
         <h3>{{ dog.name }}</h3>
         <p>Sex: {{ dog.sex }}</p>
-        {% endfor %}
+            <p>Born: {{ dog.born }}</p>
+    {% empty %}
+    <p>You have no dogs added, yet.</p>
+    {% endfor %}
     <button class="add-dog-open-button" onclick="openDogForm()">Add a dog</button>
 
     <div id="add-dog-form" class="add-dog-form">

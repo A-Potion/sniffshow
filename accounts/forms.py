@@ -3,6 +3,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import UserData, Dog
 from django.core.exceptions import ValidationError
+from django.utils import timezone
+
+class DateInput(forms.DateInput):
+    input_type = ('date')
 
 class SignUpForm(UserCreationForm):
     phone = forms.CharField(max_length=15)
@@ -26,10 +30,11 @@ class SignUpForm(UserCreationForm):
 class DogForm(forms.ModelForm):
     class Meta:
         model = Dog
-        fields = ["sex", "name"]
+        fields = ["sex", "name", "born"]
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Name'}),
-            'sex': forms.Select(),
+            'sex': forms.RadioSelect(),
+            'born': DateInput(),
         }
 
     def clean(self):
@@ -40,7 +45,10 @@ class DogForm(forms.ModelForm):
         except Dog.DoesNotExist:
             pass
         else:
-            raise ValidationError('Solution with this Name already exists for this problem')
+            raise ValidationError(f"You've already added {cleaned_data['name']}.")
+
+        if cleaned_data["born"] > timezone.now().date():
+            raise ValidationError("The dog may not be born in the future.")
 
         # Always return cleaned_data
         return cleaned_data

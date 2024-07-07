@@ -8,17 +8,14 @@
         <tr>
     <th>Event name:</th>
     <th>Event starts:</th>
-    <th>Event ends:</th>
-    <th>Event cost:</th>
-    <th>Event added:</th>
+    <th>Applications:</th>
 </tr>
     {% for event in events_to_happen %}
 <tr>
     <td><a href="{% url 'event:detail' event.id  %}">{{ event.event_name }}</a></td>
     <td>{{ event.event_start_date }}</td>
     <td>{{ event.event_end_date }}</td>
-    <td>{{ event.event_price }}$</td>
-    <td>{{ event.event_add_date}}</td>
+    <td></td>
 </tr>
     {% endfor %}
     </table>
